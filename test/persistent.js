@@ -176,4 +176,30 @@ describe('Persistent', function () {
             });
         }).done();
     });
+    it('should set data from storage to model on insert', function () {
+        var PersistenWithUpdates = require('./models/persistent-with-updates'),
+            model;
+
+        model = new PersistenWithUpdates({
+            a: 'a-1'
+        });
+        return model.save().then(function () {
+            expect(model.get('a')).to.be.equal('a-1_');
+        });
+    });
+    it('should set data from storage to model on update', function () {
+        var PersistenWithUpdates = require('./models/persistent-with-updates'),
+            model;
+
+        model = new PersistenWithUpdates({
+            a: 'a-1'
+        });
+
+        return model.save().then(function () {
+            model.set('a', 'a-2');
+            return model.save().then(function () {
+                expect(model.get('a')).to.be.equal('a-2_');
+            });
+        });
+    });
 });
