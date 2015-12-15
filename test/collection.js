@@ -328,21 +328,15 @@ describe('Collection', function () {
 
     describe('set', function () {
         it('should set new models', function () {
-            var addsCount = 0,
-                removeCount = 0;
+            var triggered = false;
 
-            collection.on('add', function () {
-                addsCount++;
-            });
-
-            collection.on('remove', function () {
-                removeCount++;
+            collection.on('reset', function () {
+                triggered = true;
             });
 
             collection.set([{id: 4, a: 'a-4'}, {id: 5, a: 'a-5'}]);
             expect(collection.toJSON()).to.be.deep.equal([{id: 4, a: 'a-4'}, {id: 5, a: 'a-5'}]);
-            expect(addsCount).to.be.equal(2);
-            expect(removeCount).to.be.equal(3);
+            expect(triggered).to.be.true;
         });
     });
 
