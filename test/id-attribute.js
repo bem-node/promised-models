@@ -6,16 +6,6 @@ var expect = require('chai').expect,
 
 describe('Id attribute', function () {
 
-    describe('Default id attribute', function () {
-
-        it('should get "id" property as id attribute from  initial data', function () {
-            var model = new TestModel({
-                id: 1
-            });
-            expect(model.getId()).to.equal(1);
-        });
-    });
-
     describe('Id attribute declaration', function () {
 
         it('should set declared attribute as id attribute', function () {
@@ -70,6 +60,13 @@ describe('Id attribute', function () {
 
             expect(model.attributes.id.isEqual(1)).to.be.true;
             expect(model.attributes.id.isEqual('1')).to.be.true;
+        });
+
+        it('should be able to unset', function () {
+            var model = new TestModel({id: 1});
+            model.unset('id');
+
+            expect(model.getId()).is.to.be.null;
         });
     });
 

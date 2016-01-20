@@ -31,6 +31,6 @@
   "dependencies": {
     "eventemitter3": "1.1.0",
     "inherit": "2.2.2",
-    "vow": "0.4.9"
+    "vow": "0.3.9"
   }
 }
