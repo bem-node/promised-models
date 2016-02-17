@@ -240,6 +240,13 @@ describe('Collection', function () {
             expect(collection.at(1).toJSON()).to.be.deep.equal(modelData);
         });
 
+        it('should be able to add model on first position', function () {
+            var modelData = {id: 4, a: 'a-4'};
+            collection.add(modelData, {at: 0});
+            expect(collection.length).to.be.equal(4);
+            expect(collection.at(0).toJSON()).to.be.deep.equal(modelData);
+        });
+
         it('should be able to add multiple models', function () {
             var count = 0;
 
