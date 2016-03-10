@@ -345,6 +345,12 @@ describe('Collection', function () {
             expect(collection.toJSON()).to.be.deep.equal([{id: 4, a: 'a-4'}, {id: 5, a: 'a-5'}]);
             expect(triggered).to.be.true;
         });
+
+        it ('should destruct old models instances after set', function () {
+            var model = collection.at(0);
+            collection.set([{id: 4, a: 'a-4'}]);
+            expect(model.isDestructed()).to.be.true;
+        });
     });
 
     describe('commit', function () {
@@ -393,22 +399,30 @@ describe('Collection', function () {
     });
     describe('destruct', function () {
         it ('should unsubscribe from nested models', function (done) {
-            var oldModelEventHandler = collection._onModelEvent,
-                model = new TestModel({id: 555, a: '123'}),
+            var model = new TestModel({id: 555, a: '123'}),
                 flag = false;
 
-            collection._onModelEvent = function () {
-                flag = true;
-                return oldModelEventHandler.apply(this, arguments);
-            };
+            collection.on('change', function (collectionModel) {
+                if (collectionModel === model) {
+                    flag = true;
+                }
+            });
+
             collection.add(model, {at: 0});
             collection.destruct();
-            collection.at(0).set('a', 'zzzzz');     
+            model.set('a', 'zzzzz');
             model.ready().then(function () {
                 expect(flag).to.be.equal(false);
                 done();
             }).done();
-        }); 
+        });
+
+        it ('should keep old manually set instances', function () {
+            var model = new TestModel({id: 4, a: 'a-4'});
+            collection.set([model]);
+            collection.destruct();
+            expect(model.isDestructed()).to.be.false;
+        });
     });
 
     describe('model events', function () {

@@ -123,6 +123,24 @@ describe('Nested models', function () {
                     done();
                 }).done();
             });
+
+            it ('should destruct nested models', function () {
+                var nestedModel = model.get('nested');
+                model.destruct();
+                expect(nestedModel.isDestructed()).to.be.true;
+            });
+
+            it ('should not destruct manually set nested model', function () {
+                var NestedModelClass = model.attributes.nested.modelType,
+                    newNestedModel = new NestedModelClass({a: '1'}),
+                    originalNestedModel = model.get('nested');
+
+                model.set('nested', newNestedModel);
+                expect(originalNestedModel.isDestructed()).to.be.true;
+                model.destruct();
+                expect(newNestedModel.isDestructed()).to.be.false;
+            });
+
         });
         describe('revert', function () {
             it('should revert nested model', function () {
