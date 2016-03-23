@@ -22,6 +22,9 @@ module.exports = Models.inherit({
             internal: true,
             default: 'c'
         }),
+
+        bool: Models.attributeTypes.Boolean,
+        
         withSyncValidation: Models.attributeTypes.String.inherit({
             type: 'string',
             default: 'validValue',
