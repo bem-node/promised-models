@@ -444,6 +444,17 @@ describe('Collection', function () {
             collection.at(0).set('a', 'aa');
         });
 
+        it('should trigger commit event', function (done) {
+            collection.on('commit', function (model) {
+                expect(model).to.be.instanceOf(TestModel);
+                expect(model.get('a')).to.be.equal('aa');
+                expect(model.isChanged()).to.be.false;
+                done();
+            });
+            collection.at(0).set('a', 'aa');
+            collection.commit();
+        });
+
     });
 
 });
