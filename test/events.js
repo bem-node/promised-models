@@ -57,6 +57,21 @@ describe('Events', function () {
             expect(model.on('change', function () {})).to.be.equal(model);
         });
     });
+    describe('model.once', function () {
+        it('should trigger once', function () {
+            var model = new ModelClass(),
+                count = 0;
+
+            model.once('change', function () {
+                count++;
+            });
+            model.set('a', 'a1');
+            model.set('b', 'b1');
+            model.ready().then(function () {
+                expect(count).to.be.equal(1);
+            });
+        });
+    });
     describe('model.un', function () {
         var model, count;
         beforeEach(function () {

@@ -280,6 +280,10 @@ model.on('change', this.changeHandler, this)
      .on('change:weight change:name', this.changeHandler, this);
 ```
 
+#### on `model.once([attributes], events, cb, [ctx])`
+
+Same as `model.on` but event handler will be called only once.
+
 #### un `model.un([attributes], events, cb, [ctx])`
 
 Unsubscribe event handler from events.
