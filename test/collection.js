@@ -455,6 +455,20 @@ describe('Collection', function () {
             collection.commit();
         });
 
+        it('should correctly trigger commit event for added and changed models', function () {
+            var triggeredCount = 0,
+                newModel = new TestModel({a: 'a'});
+
+            collection.on('commit', function () {
+                triggeredCount++;
+            });
+
+            collection.add(newModel);
+            newModel.set('a', 'aa');
+            collection.commit();
+            expect(triggeredCount).to.be.equal(2);
+        });
+
     });
 
 });
