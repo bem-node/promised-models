@@ -186,6 +186,7 @@ describe('Models list', function () {
             });
             model.get('collection').get(1).destruct();
         });
+
         it('should unsubscribe from nested models', function (done) {
             var oldCalculate = model.calculate,
                 nested = model.get('collection').get(0),
@@ -202,6 +203,25 @@ describe('Models list', function () {
                 expect(flag).to.be.equal(false);
                 done();
             }).done();
+        });
+
+        it ('should destruct nested models', function () {
+            var nestedModel = model.get('collection').get(0);
+
+            model.destruct();
+            expect(nestedModel.isDestructed()).to.be.true;
+        });
+
+        it ('should destruct own models only', function () {
+            var nestedModel = new NestedModel({a: 'a-3'});
+
+            nestedModel.ready().then(function () {
+                model.get('collection').push(nestedModel);
+                return model.ready();
+            }).then(function () {
+                model.destruct();
+                expect(nestedModel.isDestructed()).to.be.false;
+            });
         });
     });
 

@@ -417,12 +417,19 @@ describe('Collection', function () {
             }).done();
         });
 
-        it ('should keep old manually set instances', function () {
+        it ('should destruct nested models', function () {
+            var model = collection.at(0);
+            collection.destruct();
+            expect(model.isDestructed()).to.be.true;
+        });
+
+        it ('should destruct own models only', function () {
             var model = new TestModel({id: 4, a: 'a-4'});
             collection.set([model]);
             collection.destruct();
             expect(model.isDestructed()).to.be.false;
         });
+
     });
 
     describe('model events', function () {
