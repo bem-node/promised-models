@@ -141,6 +141,18 @@ describe('Nested models', function () {
                 expect(newNestedModel.isDestructed()).to.be.false;
             });
 
+            it ('should destruct only own nested models', function () {
+                var model2 = new ModelWithNested();
+                return model2.ready().then(function () {
+                    var nested = model.get('nested'),
+                        nested2 = model2.get('nested');
+
+                    model.set('nested', nested2);
+                    model.destruct();
+                    expect(nested2.isDestructed()).to.be.false;
+                });
+            });
+
         });
         describe('revert', function () {
             it('should revert nested model', function () {
