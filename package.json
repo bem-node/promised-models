@@ -31,6 +31,6 @@
   "dependencies": {
     "eventemitter3": "1.1.0",
     "inherit": "2.2.2",
-    "vow": "git://github.com/anton-kotenko/vow#42baf07fc8ca30865fc3b6f4a1b110ffe6635088"
+    "vow": "git://github.com/bem-node/vow#1148ea7271abf65e0a8722ff5d61038b82f10cd1"
   }
 }
