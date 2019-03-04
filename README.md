@@ -1,3 +1,5 @@
+Внимание, из-за бага в npm версия в package.json не увеличивается! Поднимается только git tag
+
 Promised Models 2 [![Build Status](https://travis-ci.org/bem-node/promised-models.svg?branch=master)](https://travis-ci.org/bem-node/promised-models)
 ===
 ## Key features
