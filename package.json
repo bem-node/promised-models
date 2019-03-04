@@ -31,6 +31,6 @@
   "dependencies": {
     "eventemitter3": "1.1.0",
     "inherit": "2.2.2",
-    "vow-with-domain": "git+https://github.com/bem-node/vow-with-domain#0.3.15"
+    "vow-with-domain": "git+https://github.com/bem-node/vow-with-domain#55d9b4faceac49362726460cdc3c3664614c5cd1"
   }
 }
